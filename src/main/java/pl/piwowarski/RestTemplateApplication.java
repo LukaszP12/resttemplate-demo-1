@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 
-import java.util.List;
+import static pl.piwowarski.ShawnMendesProxy.mapJsonToShawnMendesResponse;
 
 @SpringBootApplication
 public class RestTemplateApplication {
@@ -21,9 +21,10 @@ public class RestTemplateApplication {
 
     @EventListener(ApplicationStartedEvent.class)
     public void makeRequestToShawnMendesEndpoint() throws JsonProcessingException {
-        ShawnMendesResponse response = shawnMendesClient.makeSearchRequest("shawnmendes", 5);
-        System.out.println(response);
-        Integer integer = response.resultCount();
-        List<ShawnMendesResult> results = response.results();
+        String json = shawnMendesClient.makeShawnMendesRequest("shawnmendes", 5);
+        if (json != null) {
+            ShawnMendesResponse shawnMendesResponse = mapJsonToShawnMendesResponse(json);
+            System.out.println(shawnMendesResponse);
+        }
     }
 }

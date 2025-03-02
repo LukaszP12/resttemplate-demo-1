@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -18,20 +21,36 @@ public class ShawnMendesProxy {
     @Value("${shawnmendes.service.url}")
     String url;
 
-    @Value("#{1+2}")
-    int suma;
+//    @Value("#{1+2}")
+//    int suma;
 
-    public ShawnMendesResponse makeSearchRequest(String term, Integer limit) throws JsonProcessingException {
-        String uri = url + "/search?term=" + term + "&" + "limit=" + limit;
-        ResponseEntity<String> response = restTemplate.exchange(
-                uri,
-                HttpMethod.GET,
-                null,
-                String.class
-        );
-        String json = response.getBody();
+    public String makeShawnMendesRequest(String term, Integer limit) throws JsonProcessingException {
+        String uri = url + "/search?term=" + term + "&limit=" + limit;
+        return makeRequest(uri);
+    }
+
+    public static ShawnMendesResponse mapJsonToShawnMendesResponse(String json) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, ShawnMendesResponse.class);
+    }
+
+    private String makeRequest(String uri) {
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    uri,
+                    HttpMethod.GET,
+                    null,
+                    String.class
+            );
+            return response.getBody();
+        } catch (RestClientResponseException exception) {
+            System.out.println(exception.getStatusText() + " " + exception.getStatusCode().value());
+        } catch (ResourceAccessException exception) {
+            System.out.println(exception.getMessage());
+        } catch (RestClientException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return null;
     }
 
 }
