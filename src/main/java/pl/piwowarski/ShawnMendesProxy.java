@@ -1,5 +1,7 @@
 package pl.piwowarski;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -19,15 +21,17 @@ public class ShawnMendesProxy {
     @Value("#{1+2}")
     int suma;
 
-    public String makeSearchRequest(String term, Integer limit) {
+    public ShawnMendesResponse makeSearchRequest(String term, Integer limit) throws JsonProcessingException {
         String uri = url + "/search?term=" + term + "&" + "limit=" + limit;
-        ResponseEntity<String> exchange = restTemplate.exchange(
+        ResponseEntity<String> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 null,
                 String.class
         );
-        return exchange.getBody();
+        String json = response.getBody();
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, ShawnMendesResponse.class);
     }
 
 }
