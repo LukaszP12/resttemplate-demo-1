@@ -11,6 +11,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class ShawnMendesProxy {
@@ -25,7 +27,12 @@ public class ShawnMendesProxy {
 //    int suma;
 
     public String makeShawnMendesRequest(String term, Integer limit) throws JsonProcessingException {
-        String uri = url + "/search?term=" + term + "&limit=" + limit;
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
+        builder.queryParam("term", "shawnMendes");
+        builder.queryParam("limit", 5);
+        UriComponents append = builder.build();
+//        String uri = url + "/search?term=" + term + "&limit=" + limit;
+        String uri = url + "/search" + append;
         return makeRequest(uri);
     }
 
