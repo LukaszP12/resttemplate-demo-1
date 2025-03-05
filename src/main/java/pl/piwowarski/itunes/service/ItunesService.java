@@ -13,10 +13,13 @@ public class ItunesService {
     @Autowired
     ItunesProxy itunesClient;
 
+    @Autowired
+    ItunesMapper itunesMapper;
+
     public void fetchShawnMendesSongs() throws JsonProcessingException {
         String json = itunesClient.makeGetRequest("shawnmendes", 3);
         if (json != null) {
-            ItunesResponse itunesResponse = mapJsonToItunesResponse(json);
+            ItunesResponse itunesResponse = itunesMapper.mapJsonToItunesResponse(json);
             System.out.println(itunesResponse);
         }
     }
