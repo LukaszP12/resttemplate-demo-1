@@ -7,6 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
+import pl.piwowarski.proxy.itunes.ItunesProxy;
+import pl.piwowarski.proxy.itunes.ItunesResponse;
+import pl.piwowarski.proxy.sampleshawnmendes.SampleServerShawnMendesResponse;
+import pl.piwowarski.proxy.sampleshawnmendes.SampleShawnMendesServerProxy;
 
 @SpringBootApplication
 public class RestTemplateApplication {
@@ -49,9 +53,9 @@ public class RestTemplateApplication {
         }
     }
 
-    private static ShawnMendesResponse mapJsonToShawnMendesResponse(String json) throws JsonProcessingException {
+    private static ItunesResponse mapJsonToShawnMendesResponse(String json) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(json, ShawnMendesResponse.class);
+        return objectMapper.readValue(json, ItunesResponse.class);
     }
 
     private static SampleServerShawnMendesResponse mapJsonToSampleShawnMendesResponse(String json) throws JsonProcessingException {

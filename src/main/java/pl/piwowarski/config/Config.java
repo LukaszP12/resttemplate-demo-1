@@ -1,4 +1,4 @@
-package pl.piwowarski;
+package pl.piwowarski.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

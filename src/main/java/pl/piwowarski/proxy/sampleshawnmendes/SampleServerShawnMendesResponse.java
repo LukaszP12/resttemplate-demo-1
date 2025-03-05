@@ -1,4 +1,4 @@
-package pl.piwowarski;
+package pl.piwowarski.proxy.sampleshawnmendes;
 
 import java.util.List;
 

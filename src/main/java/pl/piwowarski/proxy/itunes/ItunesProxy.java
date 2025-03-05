@@ -1,4 +1,4 @@
-package pl.piwowarski;
+package pl.piwowarski.proxy.itunes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
