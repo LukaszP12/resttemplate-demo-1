@@ -1,4 +1,4 @@
-package pl.piwowarski.proxy.itunes;
+package pl.piwowarski.itunes.proxy;
 
 import java.util.List;
 

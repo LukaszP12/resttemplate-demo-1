@@ -1,4 +1,4 @@
-package pl.piwowarski.proxy.sampleshawnmendes;
+package pl.piwowarski.sampleshawnmendes.proxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

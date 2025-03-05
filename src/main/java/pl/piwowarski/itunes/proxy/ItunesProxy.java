@@ -1,4 +1,4 @@
-package pl.piwowarski.proxy.itunes;
+package pl.piwowarski.itunes.proxy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +24,19 @@ public class ItunesProxy {
     @Value("${itunes.service.port}")
     int port;
 
-    public String makeShawnMendesRequest(String term, Integer limit) throws JsonProcessingException {
+    public String makeGetRequest(String term, Integer limit) throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder
                 .newInstance()
                 .scheme("https")
                 .host(url)
                 .port(port)
                 .path("/search")
-                .queryParam("term", "shawnMendes")
-                .queryParam("limit", 5);
-        String uri = builder.build().toString();
-        return makeRequest(uri);
-    }
+                .queryParam("term", term)
+                .queryParam("limit", limit);
 
-    private String makeRequest(String uri) {
         try {
             ResponseEntity<String> response = restTemplate.exchange(
-                    uri,
+                    builder.build().toUri(),
                     HttpMethod.GET,
                     null,
                     String.class
