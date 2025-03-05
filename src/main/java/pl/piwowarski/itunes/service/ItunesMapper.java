@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import pl.piwowarski.itunes.proxy.ItunesResponse;
 
 @Component
-public class ItunesMapper {
+class ItunesMapper {
 
     ItunesResponse mapJsonToItunesResponse(String json) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

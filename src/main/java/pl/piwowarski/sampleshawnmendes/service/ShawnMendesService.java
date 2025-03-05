@@ -13,22 +13,24 @@ public class ShawnMendesService {
     @Autowired
     SampleShawnMendesServerProxy sampleShawnMendesServerClient;
 
+    @Autowired
+    ShawnMendesServiceMapper shawnMendesServiceMapper;
+
     public void testClient() throws JsonProcessingException {
-        String postJsonSampleShawnMendesServer = sampleShawnMendesServerClient.makePostRequest();
         String getJsonSampleShawnMendesServer = sampleShawnMendesServerClient.makeGetRequest();
         if (getJsonSampleShawnMendesServer != null) {
-            SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(getJsonSampleShawnMendesServer);
+            SampleServerShawnMendesResponse sampleShawnMendesResponse = shawnMendesServiceMapper.mapJsonToItunesResponse(getJsonSampleShawnMendesServer);
             System.out.println(sampleShawnMendesResponse);
         }
         sampleShawnMendesServerClient.makeDeleteRequest(0);
         String getJsonSampleShawnMendesServer2 = sampleShawnMendesServerClient.makeGetRequest();
-        if (postJsonSampleShawnMendesServer != null) {
-            SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(postJsonSampleShawnMendesServer);
-            System.out.println(sampleShawnMendesResponse);
+        if (getJsonSampleShawnMendesServer2 != null) {
+            SampleServerShawnMendesResponse sampleServerShawnMendesResponse = shawnMendesServiceMapper.mapJsonToItunesResponse(getJsonSampleShawnMendesServer2);
+            System.out.println(sampleServerShawnMendesResponse);
         }
 
         if (getJsonSampleShawnMendesServer2 != null) {
-            SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(getJsonSampleShawnMendesServer2);
+            SampleServerShawnMendesResponse sampleShawnMendesResponse = shawnMendesServiceMapper.mapJsonToItunesResponse(getJsonSampleShawnMendesServer2);
             System.out.println(sampleShawnMendesResponse);
         }
     }
